@@ -32,28 +32,41 @@ class Narrator:
 
     def speak(self, text):
         fmt_text = f"{text}"
-        print(fmt_text)
         self.voice.say(fmt_text)
         self.voice.runAndWait()
 
 def generate_cardinal_numbers(rng, len):
     return [random.randrange(0, rng) for i in range(rng)]
 
-def cardinal_numbers(turn, rng=11, len=9):
+def cardinal_numbers(rng=11, len=9):
     drill = generate_cardinal_numbers(rng, len)
-    return f'{turn}: {drill}'
+    return f'{drill}'
 
 def main():
     turn = 1
     narrator = Narrator("he_IL")
+    nxt = True
     while True:
-        drill = cardinal_numbers(turn)
+        if nxt:
+            intro = f"תרגיל מספר {turn}."
+            print(intro)
+            narrator.speak(intro)
+            drill = cardinal_numbers()
+            nxt = False
+
         narrator.speak(drill)
-        if "q" == input():
+
+        if "r" == input():
+            continue
+        elif "v" == input():
+            print(drill)
+        elif "q" == input():
+            print(drill)
             sys.exit(0)
-        else:
+        elif "n" == input():
             turn += 1
-        time.sleep(0.1)
+            nxt = True
+        time.sleep(0.001)
 
 
 if __name__ == "__main__":
