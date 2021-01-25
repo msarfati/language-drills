@@ -36,7 +36,7 @@ class Narrator:
         self.voice.runAndWait()
 
 def generate_cardinal_numbers(rng, len):
-    return [random.randrange(0, rng) for i in range(rng)]
+    return [random.randrange(0, rng) for i in range(len)]
 
 def cardinal_numbers(rng=11, len=9):
     drill = generate_cardinal_numbers(rng, len)
@@ -51,22 +51,23 @@ def main():
             intro = f"תרגיל מספר {turn}."
             print(intro)
             narrator.speak(intro)
-            drill = cardinal_numbers()
+            drill = cardinal_numbers(len=4)
             nxt = False
 
         narrator.speak(drill)
 
-        if "r" == input():
+        cmd = input("(r)epeat, re(v)eal, (n)ext, (q)uit\n> ")
+
+        if cmd == "r":
             continue
-        elif "v" == input():
+        elif cmd == "v":
             print(drill)
-        elif "q" == input():
+        elif cmd == "q":
             print(drill)
             sys.exit(0)
-        elif "n" == input():
+        elif cmd == "n":
             turn += 1
             nxt = True
-        time.sleep(0.001)
 
 
 if __name__ == "__main__":
