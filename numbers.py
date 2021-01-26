@@ -56,16 +56,15 @@ def main():
 
         narrator.speak(drill)
 
-        cmd = input("(r)epeat, re(v)eal, (n)ext, (q)uit\n> ")
+        cmd = input("(r)epeat, (n)ext, (q)uit\n> ")
 
         if cmd == "r":
             continue
-        elif cmd == "v":
-            print(drill)
         elif cmd == "q":
             print(drill)
             sys.exit(0)
-        elif cmd == "n":
+        elif cmd == "\n" or "n":
+            print(drill)
             turn += 1
             nxt = True
 
