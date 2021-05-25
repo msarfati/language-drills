@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import bidi
 import itertools
 import pyttsx3
 import random
@@ -35,39 +36,13 @@ class Narrator:
         self.voice.say(fmt_text)
         self.voice.runAndWait()
 
-def generate_cardinal_numbers(rng, len):
-    return [random.randrange(0, rng) for i in range(len)]
-
-def cardinal_numbers(rng=11, len=9):
-    drill = generate_cardinal_numbers(rng, len)
-    return f'{drill}'
-
 def main():
-    turn = 1
     narrator = Narrator("he_IL")
-    nxt = True
     while True:
-        if nxt:
-            intro = f"תרגיל מספר {turn}."
-            print(intro)
-            narrator.speak(intro)
-            # drill = cardinal_numbers(len=4)
-            drill = cardinal_numbers(rng=200, len=1)
-            nxt = False
-
-        narrator.speak(drill)
-
-        cmd = input("(r)epeat, (n)ext, (q)uit\n> ")
-
-        if cmd == "r":
-            continue
-        elif cmd == "q":
-            print(drill)
+        user_input = input("> ")
+        narrator.speak(user_input)
+        if user_input == "q":
             sys.exit(0)
-        elif cmd == "\n" or "n":
-            print(drill)
-            turn += 1
-            nxt = True
 
 
 if __name__ == "__main__":
